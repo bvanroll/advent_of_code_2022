@@ -1,4 +1,7 @@
-# Day 1: Calorie Counting
+
+# Task
+
+--- Day 1: Calorie Counting ---
 
 Santa's reindeer typically eat regular reindeer food, but they need a lot of magical energy to deliver presents on Christmas. For that, their favorite snack is a special type of star fruit that only grows deep in the jungle. The Elves have brought you on their annual expedition to the grove where the fruit grows.
 
@@ -27,6 +30,7 @@ For example, suppose the Elves finish writing their items' Calories and end up w
 
 10000
 ```
+
 This list represents the Calories of the food carried by five Elves:
 
     The first Elf is carrying food with 1000, 2000, and 3000 Calories, a total of 6000 Calories.
@@ -39,4 +43,25 @@ In case the Elves get hungry and need extra snacks, they need to know which Elf 
 
 Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
 
-To play, please identify yourself via one of these services:
+Your puzzle answer was SPOILERS!!!!
+--- Part Two ---
+
+By the time you calculate the answer to the Elves' question, they've already realized that the Elf carrying the most Calories of food might eventually run out of snacks.
+
+To avoid this unacceptable situation, the Elves would instead like to know the total Calories carried by the top three Elves carrying the most Calories. That way, even if one of those Elves runs out of snacks, they still have two backups.
+
+In the example above, the top three Elves are the fourth Elf (with 24000 Calories), then the third Elf (with 11000 Calories), then the fifth Elf (with 10000 Calories). The sum of the Calories carried by these three elves is 45000.
+
+Find the top three Elves carrying the most Calories. How many Calories are those Elves carrying in total?
+
+Your puzzle answer was SPOILERS!!!!!
+
+Both parts of this puzzle are complete! They provide two gold stars: **
+
+# Notes
+
+Decided to use lots of libraries this year, starting off with some windows UI one to load in the file for this one.
+Normally for things like this I'd use an argument with a path, but this is a lot easier since i'm using windows right now and my FS is a mess.
+Apart from struggling a bit in the beginning with another library to do this, found the current one (rfd) which is supposed to provide a cross platform solution which is great.
+First time successfully using a mutable reference in rust aswell. should've probably done that more in this exercise instead of relying on the "clone" option. Might come back to clean that up :)
+
