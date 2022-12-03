@@ -56,3 +56,28 @@ static COUNTRIES: phf::Map<&'static str, &'static str> = phf_map! {
     "UK" => "United Kingdom",
 };
 ```
+
+this gave some issues when trying to import the crate (something with the macro's).
+I couldn't find the fix for this in the documentation so i decided in the end to go back to the ugly but native solution
+
+example of the errors:
+
+```
+error[E0432]: unresolved import `phf::phf_map`
+ --> src\main.rs:5:5
+  |
+5 | use phf::phf_map;
+  |     ^^^^^^^^^^^^ no `phf_map` in the root
+```
+
+
+```
+error: cannot determine resolution for the macro `phf_map`
+ --> src\main.rs:7:49
+  |
+7 | pub static scores: phf::Map<&'static str, u8> = phf_map! (
+  |                                                 ^^^^^^^
+  |
+  = note: import resolution is stuck, try simplifying macro imports
+```
+

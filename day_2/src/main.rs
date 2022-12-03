@@ -1,14 +1,14 @@
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
-use phf::phf_map;
+use std::iter::Iterator;
 
 
-static scores: phf::Map<&'static str, u8> = phf_map! (
-    "A" => 1, //rock
-    "B" => 2, //paper
-    "C" => 3, //scizzors
-);
+pub const scores:HashMap<&str, u32> = HashMap::from([
+    ("A",1), //rock
+    ("B",2), //paper
+    ("C",3) //scizzors
+]);
 
 // figuring out a way to do this :/
 // 1 2 = lose
@@ -18,27 +18,27 @@ static scores: phf::Map<&'static str, u8> = phf_map! (
 // 3 1 = lose
 // 3 2 = win
 
-static possibilities: phf::Map<&'static u8, &'static u8> = phf_map! {
-    12 => 0,
-    13 => 6,
-    21 => 6,
-    23 => 0,
-    31 => 0,
-    32 => 6,
-    11 => 3,
-    22 => 3,
-    33 => 3,
-};
+static possibilities: HashMap<u32,u32> = HashMap::from([
+    (12,0),
+    (13,6),
+    (21,6),
+    (23,0),
+    (31,0),
+    (32,6),
+    (11,3),
+    (22,3),
+    (33,3)
+]);
 
-static shape_map: phf::Map<&'static String, &'static String> = phf_map! {
-    "X" => "A",
-    "Y" => "B",
-    "Z" => "C",
-};
+static shape_map: HashMap<&str, &str> = [
+    ("X","A"),
+    ("Y","B"),
+    ("Z","C")
+].iter().cloned().collect();
 
 struct Play {
-    them: u8,
-    you: u8
+    them: u32,
+    you: u32
 }
 
 
@@ -63,9 +63,9 @@ fn main() {
 
 fn parse_line(line: String) -> Play {
     let mut temp = line.split(' ').collect::<Vec<&str>>();
-    return Play {them: scores[temp[0].parse().unwrap()], you: scores[temp[1].parse().unwrap()] }
+    return Play {them: scores[temp[0]].clone(), you: scores[temp[1]].clone() }
 }
 
-fn get_score(p: Play) -> u8 {
-    return possibilities[p.you*10+p.them]+scores[p.you];
+fn get_score(p: Play) -> u32 {
+    return possibilities[&(p.you*10+p.them)]+&p.you;
 }
