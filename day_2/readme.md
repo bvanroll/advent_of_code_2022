@@ -40,7 +40,7 @@ At some point i wanted to define the map as a global variable and stumbled upon 
 ```rust
 use std::collections::HashMap;
 
-pub const Countries: HashMap<&str, &str> = [
+pub const COUNTRIES: HashMap<&str, &str> = [
     ("UK", "United Kingdom"),
     ("US", "United States")
 ].iter().cloned().collect();
@@ -81,3 +81,8 @@ error: cannot determine resolution for the macro `phf_map`
   = note: import resolution is stuck, try simplifying macro imports
 ```
 
+--update
+all of that did not work... going to try to figure something out. i really didn't wanna initialise the maps on start.
+
+--update 2
+we're skipping global, first answer [here](https://stackoverflow.com/a/27826181) says avoid global as much as possible followed by 19 paragraphs of explanation so i'm guessing this guy knows his stuff. Gonna initialise some map and pass it's ref to the functions needed
