@@ -5,7 +5,7 @@ use substring::Substring;
 
 
 fn main() {
-    let mut elfBuffer: Vec<String> = Vec::new();
+    let mut elf_buffer: Vec<String> = Vec::new();
     let mut value: u64 = 0;
     let current_path = std::env::current_dir().unwrap();
     let res = rfd::FileDialog::new().set_directory(&current_path).pick_file().unwrap();
@@ -13,23 +13,27 @@ fn main() {
     let reader = BufReader::new(list);
     for buffer in reader.lines() {
         if let Ok(line) = buffer {
-            elfBuffer.push(line.clone());
-            if (elfBuffer.len() == 3) {
-                value += parse_elfs(elfBuffer[0].clone(), elfBuffer[1].clone(), elfBuffer[2].clone());
-                elfBuffer = Vec::new()
+            elf_buffer.push(line.clone());
+            if (elf_buffer.len() == 3) {
+                if let Ok(temp_value) = parse_elfs(elf_buffer[0].clone(), elf_buffer[1].clone(), elf_buffer[2].clone()) {
+                    value += temp_value.clone();
+                }
+                else {
+                    println!("Could not find a similarity for lines:\n{}\n{}\n{}\n\n\n", elf_buffer[0], elf_buffer[1], elf_buffer[2])
+                }
+                elf_buffer = Vec::new()
             }
         }
     }
     println!("{}", value)
 }
-pub fn parse_elfs(elf_a: String, elf_b: String, elf_c: String) -> u64{
+pub fn parse_elfs(elf_a: String, elf_b: String, elf_c: String) -> Result<u64, String> {
     for char in elf_a.as_bytes() {
         if elf_b.as_bytes().contains(char) && elf_c.as_bytes().contains(char) {
-            return convert_value(char.clone());
+            return Ok(convert_value(char.clone()));
         }
     }
-    return 0;//nothing found
-    //TODO when nothing found make this throw an err and catch the err above
+    Err("no similar character found :/".parse().unwrap())
 }
 
 fn convert_value(value: u8) -> u64 {
