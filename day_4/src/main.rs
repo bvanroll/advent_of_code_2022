@@ -14,7 +14,7 @@ struct Assignment {
 fn parse_assignment(unparsed_assignment: &str) -> Assignment {
     let parts:Vec<&str> = unparsed_assignment.split("-").collect();
 
-    return Assignment {start: parts[0].clone().parse::<u32>().unwrap(), end: parts[1].clone().parse::<u32>().unwrap()}; //this won't work but internet is down :/
+    return Assignment {start: parts[0].clone().parse::<u32>().unwrap(), end: parts[1].clone().parse::<u32>().unwrap()}; //ugliest code known to man
 }
 
 fn check_contain(check_team: &Team) -> bool {
@@ -37,9 +37,9 @@ fn main() {
             let assignments = line.split(",").collect::<Vec<&str>>(); //NOTE the ::<... part seems to be generic rust
             //Rust can also get this typing from the var it's going to put the output in
             // let assignments: Vec<&str> = line.split().collect();
-            let mut first_assignment = parse_assignment(assignments[0]);
-            let mut second_assignment = parse_assignment(assignments[1]);
-            let mut temp_team = Team {first: first_assignment, second: second_assignment};
+            let first_assignment = parse_assignment(assignments[0]);
+            let second_assignment = parse_assignment(assignments[1]);
+            let temp_team = Team {first: first_assignment, second: second_assignment};
             if check_contain(&temp_team) {
                 contain_counter += 1;
             }
